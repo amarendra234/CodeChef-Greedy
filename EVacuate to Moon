@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        long long int n,m,h;
+        cin>>n>>m>>h;
+        long long int max_capcity[n];
+        for(int i=0;i<n;i++){
+            cin>>max_capcity[i];
+        }
+        long long int outlet[m];
+        for(int i=0;i<m;i++){
+            cin>>outlet[i];
+        }
+        sort(max_capcity,max_capcity+n);
+        sort(outlet,outlet+m);
+        long long int max_power=0;
+        long long int capcity_index=n-1;
+        long long int oulet_index=m-1;
+        while(oulet_index>=0 and capcity_index>=0){
+            long long int total_power=outlet[oulet_index]*h;
+            max_power+=min(total_power,max_capcity[capcity_index]);
+            oulet_index--;
+            capcity_index--;
+        }
+        cout<<max_power<<endl;
+    }
+}
