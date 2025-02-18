@@ -1,0 +1,38 @@
+class Solution {
+  public:
+    vector<int> JobSequencing(vector<int> &id, vector<int> &deadline,
+                              vector<int> &profit) {
+        // code here
+        int n=id.size();
+        int max_deadline=-1;
+        for(int i=0;i<n;i++){
+            max_deadline=max(max_deadline,deadline[i]);
+        }
+        vector<pair<int,pair<int,int>>>v;
+        for(int i=0;i<n;i++){
+            v.push_back({id[i],{deadline[i],profit[i]}});// {id,deadline,profit}
+        }
+        sort(v.begin(),v.end(),[](const pair<int,pair<int,int>>&a,const pair<int,pair<int,int>>&b){
+               return a.second.second>b.second.second;
+        });
+        
+        int workDone[max_deadline+1];
+        for(int i=0;i<=max_deadline;i++){
+            workDone[i]=-1;
+        }
+        int count=0,maxProfit=0;
+        for(int i=0;i<n;i++){
+            int last_day=v[i].second.first;
+            for(int j=last_day;j>=1;j--){
+                if(workDone[j]==-1){
+                    count++;
+                    maxProfit+=v[i].second.second;
+                    workDone[j]=v[i].first;
+                    break;
+                }
+            }
+        }
+        
+        return {count,maxProfit};
+    }
+};
