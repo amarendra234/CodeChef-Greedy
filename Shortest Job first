@@ -1,0 +1,17 @@
+class Solution {
+  public:
+    long long solve(vector<int>& bt) {
+        // code here
+        int n=bt.size();
+        sort(bt.begin(),bt.end());
+        long long int waiting_time=0;
+        long long int pre=0;
+        long long int total_waiting_time=0;
+        for(int i=0;i<n;i++){
+            waiting_time+=pre;
+            total_waiting_time+=waiting_time;
+            pre=bt[i];
+        }
+        return total_waiting_time/bt.size();
+    }
+};
