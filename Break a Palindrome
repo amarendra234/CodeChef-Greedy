@@ -1,0 +1,49 @@
+class Solution {
+public:
+    bool checkNotpailndrome(string str){
+        int i=0,j=str.length()-1;
+        while(i<j){
+            if(str[i]!=str[j]){
+                return true;
+            }
+            i++,j--;
+        }
+        return false;
+    }
+    string breakPalindrome(string palindrome) {
+        int n=palindrome.length();
+        int i=0,j=n-1;
+        int f=0;
+        while(i<j){
+            //try to replace 
+            char old_ch=palindrome[i];
+            char ch='a';
+            bool valid=false;
+            while(ch<old_ch){
+                palindrome[i]=ch;
+                valid=checkNotpailndrome(palindrome);
+                if(valid){
+                    f=1;
+                    break;
+                }
+                ch=ch+1;
+            }
+            if(valid){
+                break;
+            }
+            palindrome[i]=old_ch;
+            i++,j--;
+        }
+        if(f){
+            return palindrome;
+        }
+        i=0;j=n-1;
+        while(i<j){
+            char ch= palindrome[j];
+            ch=ch+1;
+             palindrome[j]=ch;
+            return palindrome;
+        }
+        return "";
+    }
+};
